@@ -1,10 +1,8 @@
 const express = require ('express')
 const router = express.Router()
-const fileController = require('./../controller/fileController')
+const { createProduct }= require('./../controller/fileController')
 
 //ruta contacto
-router.post('/create-product',fileController)
-
-
+router.post('/create-product', createProduct)
 
 module.exports = router

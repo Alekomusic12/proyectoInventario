@@ -5,13 +5,13 @@ const { request, response } = require('express')
 const createProduct = async(req = request, res = response) =>  {
     const { modelo,fabricante,precio,rutaImg,asignadoA,estado, tock, cedula  } = req.body  
     try { 
-        const file = await File.findOne({ cedula: cedula})
+        const file = await File.findOne({ cedula: cedula })
         if (file) return res.status(400).json({
             ok: false,
             msg: 'la cedula ya existe, contacte a su administrador'
         })
 
-        file.create({
+        const dbFile = new File({
             modelo: modelo,
             fabricante: fabricante,
             precio:precio,
@@ -21,6 +21,7 @@ const createProduct = async(req = request, res = response) =>  {
             tock:tock,
             cedula:cedula
         })
+        dbFile.save()
         res.status(201).json({
             ok:true,
             msg:'el producto fue creado con exito',
@@ -35,4 +36,6 @@ const createProduct = async(req = request, res = response) =>  {
         })
     }
 }
-module.exports = createProduct
+module.exports = {
+    createProduct
+}

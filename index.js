@@ -1,19 +1,17 @@
 const express = require('express');
 const app = express();
 const dataBaseConection = require('./config/config')
-const rutaApi = require('./routes/file.routes')
+const api = require('./routes/file.routes')
 const port = 4001
+
+dataBaseConection()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-
-dataBaseConection()
-
-app.use('/', rutaApi)
-
+app.use('/', api)
 
 
 app.listen(() => {
-    console.log(`Server is listenning on port ${ port }`)
+    console.log(`Server is listening on port ${ port }`)
 })
