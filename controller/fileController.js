@@ -6,6 +6,7 @@ const createProduct = async(req = request, res = response) =>  {
     const { modelo,fabricante,precio,rutaImg,asignadoA,estado, tock, cedula  } = req.body  
     try { 
         const file = await File.findOne({ cedula: cedula })
+        console.log(file)
         if (file) return res.status(400).json({
             ok: false,
             msg: 'la cedula ya existe, contacte a su administrador'
@@ -21,11 +22,11 @@ const createProduct = async(req = request, res = response) =>  {
             tock:tock,
             cedula:cedula
         })
-        dbFile.save()
-        res.status(201).json({
+        await dbFile.save()
+        return res.status(201).json({
             ok:true,
             msg:'el producto fue creado con exito',
-            file
+            dbFile
 
         })
         

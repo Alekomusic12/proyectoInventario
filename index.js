@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dataBaseConection = require('./config/config')
 const api = require('./routes/file.routes')
-const port = 4001
+const port = 5000
 
 dataBaseConection()
 
