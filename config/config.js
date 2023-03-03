@@ -9,7 +9,7 @@ const dataBaseConection = async() => {
             useUnifiedTopology: true
         })
         console.log('Database is connected!!')
-    } catch (error) {
+    } catch(error) {
         console.error(error)
     }
 }

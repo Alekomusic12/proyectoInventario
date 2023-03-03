@@ -1,17 +1,18 @@
 const express = require('express');
-const app = express();
 const dataBaseConection = require('./config/config')
-const api = require('./routes/file.routes')
-const port = 5000
+const port = 4000
+const cors = require('cors')
 
+
+const app = express();
 dataBaseConection()
+app.use(cors())
 
-app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.use('/', api)
+app.use('/api', require('./routes/file.routes'))
 
 
-app.listen(() => {
+app.listen(port, () => {
     console.log(`Server is listening on port ${ port }`)
 })

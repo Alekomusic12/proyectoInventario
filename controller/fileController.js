@@ -1,13 +1,13 @@
-const File= require('./../models/File')
-const { request, response } = require('express')
+const File = require('./../models/File')
 
 
-const createProduct = async(req = request, res = response) =>  {
+exports.createProduct = async(req, res) =>  {
+    console.log(req.bodys)
     const { modelo,fabricante,precio,rutaImg,asignadoA,estado, tock, cedula  } = req.body  
     try { 
         const file = await File.findOne({ cedula: cedula })
         console.log(file)
-        if (file) return res.status(400).json({
+        if(file) return res.status(400).json({
             ok: false,
             msg: 'la cedula ya existe, contacte a su administrador'
         })
@@ -30,13 +30,11 @@ const createProduct = async(req = request, res = response) =>  {
 
         })
         
-    } catch (error) {
+    } catch(error) {
         res.status(500).json({
             ok: false,
             msg: 'error en el servidor,contacte a su administrador'
         })
     }
 }
-module.exports = {
-    createProduct
-}
+
