@@ -59,20 +59,46 @@ exports.obtenerProduct = async(req, res) => {
         
     } }
 
-    exports.deleteproduct = async(req, res) => {
+    
+    exports.elmininarProduct = async(req, res) => {
         try {
-            
+            let producto
+            producto = await File.findById(req.params.id)
+            if (!producto) {
+                res.status(404).json({ msg: 'Producto no encontrado en la base de datos' })
+            }
+    
+            await File.findOneAndRemove({ _id: req.params.id })
+            res.json({ msg: 'Producto eliminado satisfactoriamente' })
+    
         } catch (error) {
-            res.status(403).send('algo pasa y no elmina el producto')
-            
+            console.log(error)
+            res.status(500).send('Algo pasa al momento de borrar el producto')
         }
-    } 
+    }
 
-    exports.modifyproducto = async(req, res) => {
+    exports.modificarProduct = async(req, res) => {
         try {
-            
+            let { nombre, fabricante, precio, rutaImg, asigandoA, estado, tock, cedula } = req.body
+            let producto = await File.findById(req.params.id)
+            if (!producto) {
+                res.status(404).json({ msg: 'Producto no encontrado en la base de datos' })
+            }
+    
+            producto.modelo = nombre
+            producto.fabricante = fabricante
+            producto.precio = precio
+            producto.rutaImg = Imagen 
+            producto.asigandoA = nombreUsuario
+            producto.estado = activo 
+            producto.tock = 1
+            producto.cedula = documentoc
+    
+            producto = await File.modificarProduct({ _id: req.params.id }, producto, { new: true })
+            res.json(producto)
         } catch (error) {
-            res.status(500).send('algo pasa y no modifica')
+            console.log(error)
+            res.status(500).send('Algo pasa a la hora de actualizar el producto,')
         }
     }
 
